@@ -457,6 +457,18 @@ body[data-look="home"] .nav .top:hover,body[data-look="home"] .dd:hover .top,bod
   .quick a{font-size:.88rem;padding:.55rem .85rem}
 }
 
+/* v12: studio photos sit in the side column, top level with the heading */
+.studio-split > .side img{object-position:50% 16%}
+.studio-split .quick{margin-top:clamp(1.2rem,2.5vw,1.8rem)}
+.studio-split .pgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1180px){.studio-split .pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:900px){
+  .studio-split > .side{margin-bottom:0}
+  .studio-split > .side img{aspect-ratio:5/6;object-position:50% 12%;
+    -webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent 100%);mask-image:linear-gradient(to bottom,#000 70%,transparent 100%)}
+  .studio-split > div:first-child{margin-top:-3.4rem;position:relative}
+}
+@media (max-width:640px){.studio-split .pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 
 </head>
@@ -704,32 +716,27 @@ function alpha(hex,a){const [r,g,b]=hexRGB(hex);return `rgba(${r},${g},${b},${a}
 const C={cream:"#fbf9ee",sage:"#d3e6cf",rust:"#ffd2a3",indigo:"#d8dbff",gold:"#fbe6a6",ink:"#1d211b"};
 
 
-/* Seurat-like pointillist beach (Sound Meets Art: The Beach at Gravelines) */
+/* Seurat-like tile: the same film photo as the other tiles, redrawn in dots, with dotted score lines */
 function seurat(x,W,H,r){
-  const s=W/720,hz=H*.43,shore=px=>H*(.6+.025*Math.sin(px/W*5.2+1.3)),dune=px=>H*(.71+.5*Math.pow(px/W,1.7)+.015*Math.sin(px/W*19));
-  const P={sky:["#f4e7c9","#ead9b9","#d3dbe1","#f7edd8","#ecc9a6","#dce5e6","#f0d6b8","#c9d6e2"],sea:["#3d7c98","#5a96af","#2c6483","#7eb0c2","#4b8a88","#9cc4cf","#2f5f6f","#e8d8b6"],
-    sand:["#dbb87f","#e9d09e","#c9a46b","#ba915c","#f0ddb2","#a9b780","#d39a6a"],grass:["#6e8a4a","#8fa35b","#4e6a3a","#b5b16b","#7b693d","#9daf7b","#c79a5a"],glow:["#f3d3a8","#f6dcb6","#eec29a","#f8e6c6"]};
-  const reg=(px,py)=>py<hz?(py>hz-H*.09&&r()<.35?"glow":"sky"):py<shore(px)?"sea":py<dune(px)?"sand":"grass";
-  const base={glow:"#ecdcbf",sky:"#ecdcbf",sea:"#4b88a0",sand:"#d6b47e",grass:"#6f8550"};
-  for(let py=0;py<H;py+=2*s)for(let px=0;px<W;px+=6*s){x.fillStyle=base[reg(px,py)];x.fillRect(px,py,6*s+1,2*s+1)}
-  const N=Math.round(W*H/(s*s*6.5));
-  for(let i=0;i<N;i++){const px=r()*W,py=r()*H,p=P[reg(px,py)];x.fillStyle=p[r()*p.length|0];x.beginPath();x.arc(px,py,(1.25+r()*1.25)*s,0,6.2832);x.fill()}
-  const dots=(cx,cy,w,h,cols,n,inside)=>{for(let i=0;i<n;i++){const px=cx+(r()-.5)*w,py=cy+(r()-.5)*h;if(inside&&!inside(px,py))continue;x.fillStyle=cols[r()*cols.length|0];x.beginPath();x.arc(px,py,(1.1+r()*1.1)*s,0,6.2832);x.fill()}};
-  /* a sail on the horizon, a second further out, and two mooring posts on the sand */
-  const sx=W*.64,sy=hz+H*.035,sh=H*.17,sw=W*.05;
-  dots(sx,sy-sh/2,sw*2,sh,["#ffffff","#fdf8ec","#fbf1dc","#f6e9cf"],Math.round(1100*s),(px,py)=>py<sy&&py>sy-sh&&Math.abs(px-sx)<(py-(sy-sh))/sh*sw);
-  dots(sx,sy+3*s,sw*2.2,6*s,["#3b2a22","#52372a","#2a2a33"],Math.round(160*s));
-  const tx=W*.82,ty=hz+H*.015,th=H*.07;
-  dots(tx,ty-th/2,W*.03,th,["#fbf4e4","#efe1c4"],Math.round(260*s),(px,py)=>py<ty&&py>ty-th&&Math.abs(px-tx)<(py-(ty-th))/th*W*.015);
-  [[.3,.66],[.36,.69]].forEach(([fx,fy])=>dots(W*fx,H*fy,5*s,H*.09,["#4a3526","#5c4330","#2f2a2a"],Math.round(120*s)));
+  const s=W/720,src=x.getImageData(0,0,W,H).data;
+  const PAST=["#f5c79a","#c9e4b5","#c9c7f2","#f1eedf"],N=Math.round(W*H/(s*s*17));
+  const TINT=[[30,12,-16],[-16,6,30],[10,26,4],[8,8,8]];
+  for(let i=0;i<N;i++){const px=r()*W|0,py=r()*H|0,o=(py*W+px)*4;let c;
+    if(r()<.03)c=PAST[r()*PAST.length|0];else{const t=TINT[r()*TINT.length|0];c=`rgb(${src[o]+t[0]|0},${src[o+1]+t[1]|0},${src[o+2]+t[2]|0})`}
+    x.fillStyle=c;x.beginPath();x.arc(px,py,(3.2+r()*2.4)*s,0,6.2832);x.fill()}
+  x.fillStyle="rgba(13,17,13,.12)";x.fillRect(0,0,W,H);
+  const lines=3;
+  for(let l=0;l<lines;l++){const y0=H*(.3+l*.13+(r()-.5)*.04),ph=r()*6,amp=H*(.01+r()*.025),col=PAST[l%PAST.length];
+    for(let px=W*.1;px<W*.9;px+=7*s){x.fillStyle=col;x.beginPath();x.arc(px,y0+Math.sin(px/W*7+ph)*amp,(1.9+r()*.8)*s,0,6.2832);x.fill()}}
 }
 const FILM={"orchestral": ["film-f21", "film-f10"], "ensemble": ["film-f20", "film-f22", "film-f9"], "voice": ["film-f5", "film-f15"], "electronics": ["film-f16", "film-f13", "film-f18"], "dance": ["film-f4", "film-f2", "film-bg-earth"], "arranging": ["film-f10", "film-f9", "film-f2"], "play": ["film-f16", "film-f9", "film-f21", "film-f5", "film-f4", "film-f22"], "project": ["film-f22", "film-f21", "film-f5", "film-f2", "film-f16", "film-f20", "film-f9", "film-f4"]};
 async function paint(cv,item,pal){
   const W=cv.width,H=cv.height,x=cv.getContext("2d"),r=rng(hash(item.s||item.t));
   x.fillStyle="#2b302a";x.fillRect(0,0,W,H);
-  if(item.k==="seurat"){seurat(x,W,H,r);return}
-  const list=FILM[pal]||FILM.play,im=await loadImg(list[hash(item.s)%list.length]);
+
+  const list=FILM[pal]||FILM.play,im=await loadImg(item.k==="seurat"?"film-f9":list[hash(item.s)%list.length]);
   if(im){const sc=1+r()*.6,sw=im.naturalWidth/sc,sh=Math.min(im.naturalHeight,sw*H/W),sx=r()*(im.naturalWidth-sw),sy=r()*(im.naturalHeight-sh);x.drawImage(im,sx,sy,sw,sh,0,0,W,H)}
+  if(item.k==="seurat"){if(im){const sh=Math.min(im.naturalHeight,im.naturalWidth*H/W);x.drawImage(im,0,im.naturalHeight-sh,im.naturalWidth,sh,0,0,W,H)}seurat(x,W,H,r);return}
   x.save();x.shadowColor="rgba(0,0,0,.3)";x.shadowBlur=W/240;marks(x,W,H,item,r);x.restore();
 }
 function marks(c,W,H,item,r){
@@ -821,7 +828,7 @@ const head=(title,lead,ph)=>`<header class="head${ph?" has-photo":""}"><div><h1 
 const studioHead=(title,lead,ph,extra)=>`<header class="head studio studio-${ph}"><div class="studio-text"><h1 class="title">${title}</h1>${lead?`<p class="lead">${lead}</p>`:""}${extra||""}</div><figure class="studio-ph"><img src="${IMG[ph]}" alt="Saurabh Shivakumar${ph==="studio-guitar"?" playing a hollow-body electric guitar":""}"></figure></header>`;
 const nextLink=(h,l)=>`<nav class="next" aria-label="Next page"><span>next</span><a href="#${h}">${l} →</a></nav>`;
 const watchBtn=it=>[it.v?`<a class="watch" href="${YT(it.v)}" target="_blank" rel="noopener">${playIcon}Watch on YouTube</a>`:"",it.link?`<a class="watch" href="${it.link[1]}" target="_blank" rel="noopener">${playIcon}${it.link[0]}</a>`:""].join(" ");
-const sidePh=k=>`<figure class="side"><img src="${IMG[k]}" alt="Saurabh Shivakumar"></figure>`;
+const sidePh=(k,cls)=>`<figure class="side${cls?" "+cls:""}"><img src="${IMG[k]}" alt="Saurabh Shivakumar"></figure>`;
 const cvList=items=>`<ul class="cv">${items.map(([b,y,o])=>`<li><b>${b}</b><span class="y">${y}</span>${o?`<span class="o">${o}</span>`:""}</li>`).join("")}</ul>`;
 const workMeta=w=>[w.y,w.v?"▶ video":""].filter(Boolean).join(" · ")||"&nbsp;";
 const actMeta=a=>[a.role.split(" · ")[0],a.v?"▶ video":""].filter(Boolean).join(" · ");
@@ -939,9 +946,9 @@ function renderComposer(sub){
   const all=[...WORKS,...ARR];
   if(!sub){
     const quick=`<nav class="quick" aria-label="Jump to a kind of music">${CATS.map(([k,l])=>`<a href="#composer-${k}" data-jump="sec-${k}">${l}</a>`).join("")}</nav>`;
-    view.innerHTML=`<section class="page">${studioHead("composer","",'studio-standing',quick)}
+    view.innerHTML=`<section class="page"><div class="split studio-split"><div><header class="head"><div><h1 class="title">composer</h1>${quick}</div></header>
     ${CATS.map(([k,l])=>{const ws=inCat(k),pre=k==="arranging"?"p":"w";return `<section class="sec" id="sec-${k}"><div class="sec-head"><h2><a href="#composer-${k}">${l}</a></h2><span class="count">${ws.length}</span><a class="open" href="#composer-${k}">open section →</a></div>
-      <div class="grid">${ws.map(w=>tileHTML(w,pre,k==="arranging"?actMeta(w):workMeta(w))).join("")}</div></section>`}).join("")}</section>`;
+      <div class="grid">${ws.map(w=>tileHTML(w,pre,k==="arranging"?actMeta(w):workMeta(w))).join("")}</div></section>`}).join("")}</div>${sidePh("studio-standing","studio-side")}</div></section>`;
     view.querySelectorAll("[data-jump]").forEach(a=>a.addEventListener("click",e=>{const t=document.getElementById(a.dataset.jump);if(!t)return;e.preventDefault();
       t.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})}));
     paintIn(all,palOf);return;
@@ -955,12 +962,12 @@ function renderComposer(sub){
 /* ---------- performer ---------- */
 function renderPerformer(sub){
   if(!sub){
-    view.innerHTML=`<section class="page">${studioHead("performer","Guitar, feedback and electronics: in ensembles, in concert series and premieres, and solo.","studio-guitar")}
+    view.innerHTML=`<section class="page"><div class="split studio-split"><div>${head("performer","Guitar, feedback and electronics: in ensembles, in concert series and premieres, and solo.")}
     <div class="pgrid">${PHOTOS.map(([k,c])=>`<figure><img src="${IMG[k]}" alt="${c}" loading="lazy"><figcaption>${c}${CREDIT[k]?" · "+CREDIT[k]:""}</figcaption></figure>`).join("")}</div>
     ${GROUPS.map(([g,l])=>{const as=PERF.filter(a=>a.g===g);return `<section class="sec"><div class="sec-head"><h2><a href="#performer-${g}">${l}</a></h2><span class="count">${as.length}</span><a class="open" href="#performer-${g}">open section →</a></div>
       <ul class="rows">${as.map(a=>`<li><a href="#p-${a.s}"><span class="n">${a.t}</span><span class="r">${a.role}${a.v?" · ▶ video":""}</span></a></li>`).join("")}</ul></section>`}).join("")}
     <section class="sec"><div class="sec-head"><h2><a href="#projects">red on gold &amp; [flux]</a></h2><a class="open" href="#projects">in projects →</a></div><p class="with">Saurabh’s improvising duo <a href="#j-red-on-gold">Red on Gold</a>, with Anastasija Stanojevic, and <a href="#j-flux">[flux] ensemble</a> have their own pages under projects.</p></section>
-    <section class="sec"><div class="sec-head"><h2>recent collaborations</h2></div><p class="with">${COLLAB}.</p></section></section>`;
+    <section class="sec"><div class="sec-head"><h2>recent collaborations</h2></div><p class="with">${COLLAB}.</p></section></div>${sidePh("studio-guitar","studio-side")}</div></section>`;
     return;
   }
   const i=GROUPS.findIndex(g=>g[0]===sub),[g,l,desc]=GROUPS[i],nx=GROUPS[(i+1)%GROUPS.length],as=PERF.filter(a=>a.g===g);
