@@ -430,6 +430,33 @@ body[data-look="home"] .bar .mark{color:var(--name-ink,var(--mq-ink))}
 body[data-look="home"] .nav .top,body[data-look="home"] .dd-btn,body[data-look="home"] .bar .icons a{color:var(--foot-ink)}
 body[data-look="home"] .nav .top:hover,body[data-look="home"] .dd:hover .top,body[data-look="home"] .dd.open .top,body[data-look="home"] .bar .icons a:hover,body[data-look="home"] .mark:hover{color:var(--role)}
 
+/* v11: studio header for composer and performer; photos that run to the page edge; quick links; ticket links */
+.head.studio{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,clamp(17rem,38vw,32rem));gap:1rem clamp(1.5rem,4vw,3.5rem);align-items:end;margin-top:calc(-1 * clamp(.5rem,2vw,2rem))}
+.studio-text{min-width:0;padding-bottom:clamp(1rem,3.5vw,3rem)}
+.studio-ph{margin:0;min-width:0}
+.studio-ph img{display:block;width:100%;height:auto;max-height:min(78svh,46rem);object-fit:cover;object-position:50% 30%;
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 8%,#000 84%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 8%,#000 84%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect}
+.quick{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:clamp(1.2rem,2.5vw,1.8rem);max-width:40rem}
+.quick a{font:500 .95rem/1 var(--sans);color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:.62rem 1rem;background:rgba(255,255,255,.18);transition:background .2s,color .2s,border-color .2s}
+.quick a:hover{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.sec[id]{scroll-margin-top:1.2rem}
+.tix{display:inline-block;margin-left:.2rem;font:500 .74rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--hover);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px;white-space:nowrap}
+.tix:hover{color:var(--ink)}
+.split > .side{margin-right:calc(-1 * var(--gutter));top:calc(var(--bar-h,5rem) + .5rem)}
+.split > .side img{aspect-ratio:auto;height:min(calc(100svh - var(--bar-h,5rem) - 2rem),54rem);object-fit:cover}
+@media (max-width:900px){
+  .split > .side{margin-inline:calc(-1 * var(--gutter));margin-bottom:.5rem}
+  .split > .side img{height:auto;aspect-ratio:4/3}
+}
+@media (max-width:760px){
+  .head.studio{grid-template-columns:minmax(0,1fr);margin-top:0}
+  .studio-ph{order:-1;margin-inline:calc(-1 * var(--gutter))}
+  .studio-ph img{max-height:none;aspect-ratio:5/6;object-position:50% 12%;
+    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 12%,#000 88%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 7%,#000 68%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 12%,#000 88%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 7%,#000 68%,transparent 100%)}
+  .studio-text{margin-top:-3.2rem;position:relative;padding-bottom:0}
+  .quick a{font-size:.88rem;padding:.55rem .85rem}
+}
+
 </style>
 
 </head>
@@ -465,7 +492,7 @@ body[data-look="home"] .nav .top:hover,body[data-look="home"] .dd:hover .top,bod
 </div>
 
 <script>
-const IMG = {"home-grass": "img/home-grass.jpg", "home-hall": "img/home-hall.jpg", "home-mallet": "img/home-mallet.jpg", "home-neon": "img/home-neon.jpg", "home-concrete": "img/home-concrete.jpg", "bench": "img/bench.jpg", "field-turn": "img/field-turn.jpg", "field-front": "img/field-front.jpg", "wall": "img/wall.jpg", "pole": "img/pole.jpg", "blossom": "img/blossom.jpg", "concrete": "img/concrete.jpg", "stage": "img/stage.jpg", "duo": "img/duo.jpg", "violet": "img/violet.jpg", "portrait": "img/portrait.jpg", "hall": "img/hall.jpg", "perf-solo": "img/perf-solo.jpg", "perf-studio": "img/perf-studio.jpg", "perf-bow": "img/perf-bow.jpg", "courtauld-point": "img/courtauld-point.jpg", "courtauld-cello": "img/courtauld-cello.jpg", "film-bg-earth": "img/film-bg-earth.jpg", "film-f10": "img/film-f10.jpg", "film-f13": "img/film-f13.jpg", "film-f15": "img/film-f15.jpg", "film-f16": "img/film-f16.jpg", "film-f18": "img/film-f18.jpg", "film-f2": "img/film-f2.jpg", "film-f20": "img/film-f20.jpg", "film-f21": "img/film-f21.jpg", "film-f22": "img/film-f22.jpg", "film-f4": "img/film-f4.jpg", "film-f5": "img/film-f5.jpg", "film-f9": "img/film-f9.jpg"};
+const IMG = {"home-grass": "img/home-grass.jpg", "home-hall": "img/home-hall.jpg", "home-mallet": "img/home-mallet.jpg", "home-neon": "img/home-neon.jpg", "home-concrete": "img/home-concrete.jpg", "bench": "img/bench.jpg", "field-turn": "img/field-turn.jpg", "field-front": "img/field-front.jpg", "wall": "img/wall.jpg", "pole": "img/pole.jpg", "blossom": "img/blossom.jpg", "concrete": "img/concrete.jpg", "stage": "img/stage.jpg", "duo": "img/duo.jpg", "violet": "img/violet.jpg", "portrait": "img/portrait.jpg", "hall": "img/hall.jpg", "perf-solo": "img/perf-solo.jpg", "perf-studio": "img/perf-studio.jpg", "perf-bow": "img/perf-bow.jpg", "courtauld-point": "img/courtauld-point.jpg", "courtauld-cello": "img/courtauld-cello.jpg", "studio-guitar": "img/studio-guitar.jpg", "studio-standing": "img/studio-standing.jpg", "film-bg-earth": "img/film-bg-earth.jpg", "film-f10": "img/film-f10.jpg", "film-f13": "img/film-f13.jpg", "film-f15": "img/film-f15.jpg", "film-f16": "img/film-f16.jpg", "film-f18": "img/film-f18.jpg", "film-f2": "img/film-f2.jpg", "film-f20": "img/film-f20.jpg", "film-f21": "img/film-f21.jpg", "film-f22": "img/film-f22.jpg", "film-f4": "img/film-f4.jpg", "film-f5": "img/film-f5.jpg", "film-f9": "img/film-f9.jpg"};
 const ICONS = {"youtube":{"w":576,"h":512,"d":"M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"},"instagram":{"w":448,"h":512,"d":"M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"},"bandcamp":{"w":512,"h":512,"d":"M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm48.2,326.1h-181L207.9,178h181Z"},"soundcloud":{"w":640,"h":512,"d":"M111.4 256.3l5.8 65-5.8 68.3c-.3 2.5-2.2 4.4-4.4 4.4s-4.2-1.9-4.2-4.4l-5.6-68.3 5.6-65c0-2.2 1.9-4.2 4.2-4.2 2.2 0 4.1 2 4.4 4.2zm21.4-45.6c-2.8 0-4.7 2.2-5 5l-5 105.6 5 68.3c.3 2.8 2.2 5 5 5 2.5 0 4.7-2.2 4.7-5l5.8-68.3-5.8-105.6c0-2.8-2.2-5-4.7-5zm25.5-24.1c-3.1 0-5.3 2.2-5.6 5.3l-4.4 130 4.4 67.8c.3 3.1 2.5 5.3 5.6 5.3 2.8 0 5.3-2.2 5.3-5.3l5.3-67.8-5.3-130c0-3.1-2.5-5.3-5.3-5.3zM7.2 283.2c-1.4 0-2.2 1.1-2.5 2.5L0 321.3l4.7 35c.3 1.4 1.1 2.5 2.5 2.5s2.2-1.1 2.5-2.5l5.6-35-5.6-35.6c-.3-1.4-1.1-2.5-2.5-2.5zm23.6-21.9c-1.4 0-2.5 1.1-2.5 2.5l-6.4 57.5 6.4 56.1c0 1.7 1.1 2.8 2.5 2.8s2.5-1.1 2.8-2.5l7.2-56.4-7.2-57.5c-.3-1.4-1.4-2.5-2.8-2.5zm25.3-11.4c-1.7 0-3.1 1.4-3.3 3.3L47 321.3l5.8 65.8c.3 1.7 1.7 3.1 3.3 3.1 1.7 0 3.1-1.4 3.1-3.1l6.9-65.8-6.9-68.1c0-1.9-1.4-3.3-3.1-3.3zm25.3-2.2c-1.9 0-3.6 1.4-3.6 3.6l-5.8 70 5.8 67.8c0 2.2 1.7 3.6 3.6 3.6s3.6-1.4 3.9-3.6l6.4-67.8-6.4-70c-.3-2.2-2-3.6-3.9-3.6zm241.4-110.9c-1.1-.8-2.8-1.4-4.2-1.4-2.2 0-4.2.8-5.6 1.9-1.9 1.7-3.1 4.2-3.3 6.7v.8l-3.3 176.7 1.7 32.5 1.7 31.7c.3 4.7 4.2 8.6 8.9 8.6s8.6-3.9 8.6-8.6l3.9-64.2-3.9-177.5c-.4-3-2-5.8-4.5-7.2zm-26.7 15.3c-1.4-.8-2.8-1.4-4.4-1.4s-3.1.6-4.4 1.4c-2.2 1.4-3.6 3.9-3.6 6.7l-.3 1.7-2.8 160.8s0 .3 3.1 65.6v.3c0 1.7.6 3.3 1.7 4.7 1.7 1.9 3.9 3.1 6.4 3.1 2.2 0 4.2-1.1 5.6-2.5 1.7-1.4 2.5-3.3 2.5-5.6l.3-6.7 3.1-58.6-3.3-162.8c-.3-2.8-1.7-5.3-3.9-6.7zm-111.4 22.5c-3.1 0-5.8 2.8-5.8 6.1l-4.4 140.6 4.4 67.2c.3 3.3 2.8 5.8 5.8 5.8 3.3 0 5.8-2.5 6.1-5.8l5-67.2-5-140.6c-.2-3.3-2.7-6.1-6.1-6.1zm376.7 62.8c-10.8 0-21.1 2.2-30.6 6.1-6.4-70.8-65.8-126.4-138.3-126.4-17.8 0-35 3.3-50.3 9.4-6.1 2.2-7.8 4.4-7.8 9.2v249.7c0 5 3.9 8.6 8.6 9.2h218.3c43.3 0 78.6-35 78.6-78.3.1-43.6-35.2-78.9-78.5-78.9zm-296.7-60.3c-4.2 0-7.5 3.3-7.8 7.8l-3.3 136.7 3.3 65.6c.3 4.2 3.6 7.5 7.8 7.5 4.2 0 7.5-3.3 7.5-7.5l3.9-65.6-3.9-136.7c-.3-4.5-3.3-7.8-7.5-7.8zm-53.6-7.8c-3.3 0-6.4 3.1-6.4 6.7l-3.9 145.3 3.9 66.9c.3 3.6 3.1 6.4 6.4 6.4 3.6 0 6.4-2.8 6.7-6.4l4.4-66.9-4.4-145.3c-.3-3.6-3.1-6.7-6.7-6.7zm26.7 3.4c-3.9 0-6.9 3.1-6.9 6.9L227 321.3l3.9 66.4c.3 3.9 3.1 6.9 6.9 6.9s6.9-3.1 6.9-6.9l4.2-66.4-4.2-141.7c0-3.9-3-6.9-6.9-6.9z"},"tiktok":{"w":448,"h":512,"d":"M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"},"email":{"w":512,"h":512,"d":"M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"}};
 const CREDIT={duo:"PicturesbyPatterson",portrait:"PicturesbyPatterson"};
 
@@ -506,7 +533,7 @@ const WORKS=[
    by:"Riot Ensemble, conducted by Aaron Holloway-Nahum, Royal Academy of Music",v:"j4mWW9FHTbQ"},
   {s:"ill-be-right-over",t:"I’ll Be Right Over",cat:"ensemble",y:"2025",k:"ens",n:4,sc:"Flute/alto flute, clarinet/bass clarinet, violin, cello",
    by:"CHROMA and Royal Academy of Music students",v:"0aTik5Y3ps8"},
-  {s:"the-beach-at-gravelines",t:"The Beach at Gravelines",cat:"ensemble",y:"2025",k:"horizon",sc:"Bansuri, electric guitar, violin, cello",
+  {s:"the-beach-at-gravelines",t:"The Beach at Gravelines",cat:"ensemble",y:"2025",k:"seurat",sc:"Bansuri, electric guitar, violin, cello",
    by:"Sound Meets Art, The Courtauld Gallery, London"},
   {s:"the-river-ale-house",t:"The River Ale House",cat:"ensemble",y:"2025",k:"ens",n:2,sc:"Tenor recorder and cello",by:"Written for Gonçalo Pires and Gabriel Alves"},
   {s:"spectral-threads",t:"Spectral Threads in Time’s Tapestry",cat:"ensemble",y:"2023",k:"threads",sc:"String quartet"},
@@ -556,9 +583,11 @@ const ACTS=[
 ];
 
 const UPCOMING=[
+  ["6 November 2026","Helm Studios, Deptford","Red on Gold support Ed Cooper and Terra Invisus at their album launch, presented by Infinite Expanse","https://gel.now/events/1255"],
+  ["11 November 2026","Avalon Cafe, London","<i>Other Side of the Room</i>: [flux] give the world premiere of a new piece by Saurabh, alongside John Cage’s <i>Living Room Music</i>","https://www.eventbrite.co.uk/e/other-side-of-the-room-tickets-2003170800789"],
+  ["14 November 2026","Theatreship, South Quay","<i>HOWL</i>: an experimental music and drawing session, with improvised duos","https://www.eventbrite.co.uk/e/guest-event-howl-experimental-music-and-drawing-session-tickets-2001699582335"],
+  ["27 January 2027","Resolution festival, The Place, London","<i>Corpus Terrestre (Earthbound Body)</i>, a new dance work with choreographer Jessica Ridge"],
   ["2027","Pizza Express Jazz Club, London","Sultan Stevenson Jazz Orchestra during Sultan Stevenson’s residency, with arrangements by Saurabh"],
-  ["2027","Resolution festival","<i>Corpus Terrestre (Earthbound Body)</i>, a new dance work with choreographer Jessica Ridge"],
-  ["tbc","New piece","A new open-form piece for a programme alongside John Cage’s <i>Living Room Music</i>"],
   ["2026–27","The Holburne Museum, Bath","Schools composition and art workshops"]
 ];
 const PAST=[
@@ -609,9 +638,9 @@ const PROJECTS=[
   {s:"red-on-gold",t:"Red on Gold",kind:"improvising duo",y:"ongoing",k:"duo",with:"Anastasija Stanojevic, voice and electronics",
    d:"An improvising duo with singer and electronic musician Anastasija Stanojevic: guitar, feedback and electronics against voice and electronics. The duo is exploring spatial audio for the Royal Academy of Music’s new concert room."},
   {s:"flux",t:"[flux] ensemble",kind:"ensemble",y:"ongoing",k:"ens",n:5,with:"[flux] ensemble",
-   d:"Saurabh is a member of [flux] ensemble."},
+   d:"Saurabh is a member of [flux] ensemble. On 11 November 2026 at <i>Other Side of the Room</i>, [flux] give the world premiere of a new piece by Saurabh, alongside John Cage’s <i>Living Room Music</i>."},
   {s:"dance",t:"Dance",kind:"music for dance",y:"ongoing",k:"dance",with:"choreographer Jessica Ridge; dancers Adhya Shastry and Ola Derecka",
-   d:"Scores made with choreographers and dancers, from electronic music with Carnatic voice and mridangam to live music for singers, strings and amplifier feedback. Next is <i>Corpus Terrestre (Earthbound Body)</i>, a 20-minute work with Jessica Ridge and five dancers for Resolution festival.",
+   d:"Scores made with choreographers and dancers, from electronic music with Carnatic voice and mridangam to live music for singers, strings and amplifier feedback. Next is <i>Corpus Terrestre (Earthbound Body)</i>, a 20-minute work with Jessica Ridge and five dancers for Resolution festival at The Place, London, on 27 January 2027.",
    works:["corpus-terrestre","komal","and-afterwards"]},
   {s:"see-it-say-it",t:"See it. Say it. Saurabh.",kind:"interactive piece",y:"2026",k:"tube",with:"electric guitar, Max/MSP and IanniX",
    d:"A map of the London Underground becomes a graphic score. Routes traced in IanniX drive Max/MSP electronics and loops around a live electric guitar. Performed at Music for Guitars, Royal Academy of Music, March 2026.",
@@ -619,7 +648,7 @@ const PROJECTS=[
   {s:"two-is-company",t:"Two is Company, Three is a Crowd",kind:"concert & research",y:"September 2026",k:"voice",with:"Anastasija Stanojevic and Ashkan Layegh",
    d:"Three duos, three premieres and three improvisations in the Concert Room at the Royal Academy of Music. The concert closed Saurabh’s MMus research, <i>The Space Between</i>, on composer and performer identity, agency and collaboration.",
    rel:[["w-zajedno","Zajedno. Za. Zajed, Zajedno."]]},
-  {s:"sound-meets-art",t:"Sound Meets Art",kind:"gallery project",y:"2025",k:"horizon",with:"The Courtauld Gallery",photos:["courtauld-cello","courtauld-point"],
+  {s:"sound-meets-art",t:"Sound Meets Art",kind:"gallery project",y:"2025",k:"seurat",with:"The Courtauld Gallery",
    d:"<i>The Beach at Gravelines</i>, for bansuri, electric guitar, violin and cello, made for Sound Meets Art and played in the gallery at The Courtauld.",
    rel:[["w-the-beach-at-gravelines","The Beach at Gravelines"]]},
   {s:"radigue",t:"Homage to Éliane Radigue",kind:"curation",y:"July 2026",k:"sustain",n:7,with:"an ensemble of seven",
@@ -674,10 +703,31 @@ function rng(seed){let a=seed>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^
 function alpha(hex,a){const [r,g,b]=hexRGB(hex);return `rgba(${r},${g},${b},${a})`}
 const C={cream:"#fbf9ee",sage:"#d3e6cf",rust:"#ffd2a3",indigo:"#d8dbff",gold:"#fbe6a6",ink:"#1d211b"};
 
+
+/* Seurat-like pointillist beach (Sound Meets Art: The Beach at Gravelines) */
+function seurat(x,W,H,r){
+  const s=W/720,hz=H*.43,shore=px=>H*(.6+.025*Math.sin(px/W*5.2+1.3)),dune=px=>H*(.71+.5*Math.pow(px/W,1.7)+.015*Math.sin(px/W*19));
+  const P={sky:["#f4e7c9","#ead9b9","#d3dbe1","#f7edd8","#ecc9a6","#dce5e6","#f0d6b8","#c9d6e2"],sea:["#3d7c98","#5a96af","#2c6483","#7eb0c2","#4b8a88","#9cc4cf","#2f5f6f","#e8d8b6"],
+    sand:["#dbb87f","#e9d09e","#c9a46b","#ba915c","#f0ddb2","#a9b780","#d39a6a"],grass:["#6e8a4a","#8fa35b","#4e6a3a","#b5b16b","#7b693d","#9daf7b","#c79a5a"],glow:["#f3d3a8","#f6dcb6","#eec29a","#f8e6c6"]};
+  const reg=(px,py)=>py<hz?(py>hz-H*.09&&r()<.35?"glow":"sky"):py<shore(px)?"sea":py<dune(px)?"sand":"grass";
+  const base={glow:"#ecdcbf",sky:"#ecdcbf",sea:"#4b88a0",sand:"#d6b47e",grass:"#6f8550"};
+  for(let py=0;py<H;py+=2*s)for(let px=0;px<W;px+=6*s){x.fillStyle=base[reg(px,py)];x.fillRect(px,py,6*s+1,2*s+1)}
+  const N=Math.round(W*H/(s*s*6.5));
+  for(let i=0;i<N;i++){const px=r()*W,py=r()*H,p=P[reg(px,py)];x.fillStyle=p[r()*p.length|0];x.beginPath();x.arc(px,py,(1.25+r()*1.25)*s,0,6.2832);x.fill()}
+  const dots=(cx,cy,w,h,cols,n,inside)=>{for(let i=0;i<n;i++){const px=cx+(r()-.5)*w,py=cy+(r()-.5)*h;if(inside&&!inside(px,py))continue;x.fillStyle=cols[r()*cols.length|0];x.beginPath();x.arc(px,py,(1.1+r()*1.1)*s,0,6.2832);x.fill()}};
+  /* a sail on the horizon, a second further out, and two mooring posts on the sand */
+  const sx=W*.64,sy=hz+H*.035,sh=H*.17,sw=W*.05;
+  dots(sx,sy-sh/2,sw*2,sh,["#ffffff","#fdf8ec","#fbf1dc","#f6e9cf"],Math.round(1100*s),(px,py)=>py<sy&&py>sy-sh&&Math.abs(px-sx)<(py-(sy-sh))/sh*sw);
+  dots(sx,sy+3*s,sw*2.2,6*s,["#3b2a22","#52372a","#2a2a33"],Math.round(160*s));
+  const tx=W*.82,ty=hz+H*.015,th=H*.07;
+  dots(tx,ty-th/2,W*.03,th,["#fbf4e4","#efe1c4"],Math.round(260*s),(px,py)=>py<ty&&py>ty-th&&Math.abs(px-tx)<(py-(ty-th))/th*W*.015);
+  [[.3,.66],[.36,.69]].forEach(([fx,fy])=>dots(W*fx,H*fy,5*s,H*.09,["#4a3526","#5c4330","#2f2a2a"],Math.round(120*s)));
+}
 const FILM={"orchestral": ["film-f21", "film-f10"], "ensemble": ["film-f20", "film-f22", "film-f9"], "voice": ["film-f5", "film-f15"], "electronics": ["film-f16", "film-f13", "film-f18"], "dance": ["film-f4", "film-f2", "film-bg-earth"], "arranging": ["film-f10", "film-f9", "film-f2"], "play": ["film-f16", "film-f9", "film-f21", "film-f5", "film-f4", "film-f22"], "project": ["film-f22", "film-f21", "film-f5", "film-f2", "film-f16", "film-f20", "film-f9", "film-f4"]};
 async function paint(cv,item,pal){
   const W=cv.width,H=cv.height,x=cv.getContext("2d"),r=rng(hash(item.s||item.t));
   x.fillStyle="#2b302a";x.fillRect(0,0,W,H);
+  if(item.k==="seurat"){seurat(x,W,H,r);return}
   const list=FILM[pal]||FILM.play,im=await loadImg(list[hash(item.s)%list.length]);
   if(im){const sc=1+r()*.6,sw=im.naturalWidth/sc,sh=Math.min(im.naturalHeight,sw*H/W),sx=r()*(im.naturalWidth-sw),sy=r()*(im.naturalHeight-sh);x.drawImage(im,sx,sy,sw,sh,0,0,W,H)}
   x.save();x.shadowColor="rgba(0,0,0,.3)";x.shadowBlur=W/240;marks(x,W,H,item,r);x.restore();
@@ -767,6 +817,8 @@ const plain=s=>s.replace(/<[^>]+>/g,"");
 const lab=(arr,k)=>(arr.find(x=>x[0]===k)||[,k])[1];
 const playIcon='<svg width="11" height="13" viewBox="0 0 11 13" aria-hidden="true"><path d="M0 0l11 6.5L0 13z" fill="currentColor"/></svg>';
 const head=(title,lead,ph)=>`<header class="head${ph?" has-photo":""}"><div><h1 class="title">${title}</h1>${lead?`<p class="lead">${lead}</p>`:""}</div>${ph?`<figure class="head-ph"><img src="${IMG[ph]}" alt="Saurabh Shivakumar"></figure>`:""}</header>`;
+/* composer and performer open on a studio photo whose tan backdrop fades into a matching page colour */
+const studioHead=(title,lead,ph,extra)=>`<header class="head studio studio-${ph}"><div class="studio-text"><h1 class="title">${title}</h1>${lead?`<p class="lead">${lead}</p>`:""}${extra||""}</div><figure class="studio-ph"><img src="${IMG[ph]}" alt="Saurabh Shivakumar${ph==="studio-guitar"?" playing a hollow-body electric guitar":""}"></figure></header>`;
 const nextLink=(h,l)=>`<nav class="next" aria-label="Next page"><span>next</span><a href="#${h}">${l} →</a></nav>`;
 const watchBtn=it=>[it.v?`<a class="watch" href="${YT(it.v)}" target="_blank" rel="noopener">${playIcon}Watch on YouTube</a>`:"",it.link?`<a class="watch" href="${it.link[1]}" target="_blank" rel="noopener">${playIcon}${it.link[0]}</a>`:""].join(" ");
 const sidePh=k=>`<figure class="side"><img src="${IMG[k]}" alt="Saurabh Shivakumar"></figure>`;
@@ -801,6 +853,9 @@ const HOMES=window.HOMES_OVERRIDE||[
    v:{"--mq-ink":"#f8f6ee","--role":"#f2d64b","--mq-shadow":"none","--role-hover":"#ffffff","--foot-ink":"#f8f6ee","--foot-accent":"#f2d64b","--foot-shadow":"transparent","--bar-ink":"#0b0d10","--mark":"#13254a","--bar-hover":"#13254a"}},
 ];
 let lastHome=-1,pageFor=-2;
+/* the studio photos (tan backdrop) set the colours for composer and performer */
+const STUDIO_SECS=["composer","performer"];
+const STUDIO={k:"studio",page:{"--paper":"#c7a17a","--paper-2":"#bb946d","--white":"#f1e4d2","--ink":"#2a1b11","--ink-soft":"rgba(42,27,17,.76)","--sky":"#7d2b0e","--grass":"#5b3517","--lilac":"#7d2b0e","--line":"rgba(42,27,17,.24)","--hover":"#9c3b10","--page-mark":"#3b2415"}};
 /* sub-pages borrow the colours of one of the other photos: never the one just shown on the home page */
 let SECPAL={};
 function pagePalette(sec){
@@ -809,7 +864,7 @@ function pagePalette(sec){
     for(let i=others.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[others[i],others[j]]=[others[j],others[i]]}
     SECPAL={};NAV.forEach(([h],i)=>SECPAL[h]=others[i%others.length]);pageFor=lastHome;
   }
-  const pick=HOMES[SECPAL[sec]!=null?SECPAL[sec]:SECPAL.about];
+  const pick=STUDIO_SECS.includes(sec)?STUDIO:HOMES[SECPAL[sec]!=null?SECPAL[sec]:SECPAL.about];
   Object.entries(pick.page).forEach(([p,v])=>document.documentElement.style.setProperty(p,v));
   document.documentElement.dataset.palette=pick.k;
 }
@@ -883,9 +938,12 @@ function renderComposer(sub){
   const palOf=it=>it.cat||"arranging";
   const all=[...WORKS,...ARR];
   if(!sub){
-    view.innerHTML=`<section class="page">${head("composer",`${WORKS.length} works and ${ARR.length} arrangements in six sections. Open a section for scoring, performers and recordings.`,"blossom")}
-    ${CATS.map(([k,l])=>{const ws=inCat(k),pre=k==="arranging"?"p":"w";return `<section class="sec"><div class="sec-head"><h2><a href="#composer-${k}">${l}</a></h2><span class="count">${ws.length}</span><a class="open" href="#composer-${k}">open section →</a></div>
+    const quick=`<nav class="quick" aria-label="Jump to a kind of music">${CATS.map(([k,l])=>`<a href="#composer-${k}" data-jump="sec-${k}">${l}</a>`).join("")}</nav>`;
+    view.innerHTML=`<section class="page">${studioHead("composer","",'studio-standing',quick)}
+    ${CATS.map(([k,l])=>{const ws=inCat(k),pre=k==="arranging"?"p":"w";return `<section class="sec" id="sec-${k}"><div class="sec-head"><h2><a href="#composer-${k}">${l}</a></h2><span class="count">${ws.length}</span><a class="open" href="#composer-${k}">open section →</a></div>
       <div class="grid">${ws.map(w=>tileHTML(w,pre,k==="arranging"?actMeta(w):workMeta(w))).join("")}</div></section>`}).join("")}</section>`;
+    view.querySelectorAll("[data-jump]").forEach(a=>a.addEventListener("click",e=>{const t=document.getElementById(a.dataset.jump);if(!t)return;e.preventDefault();
+      t.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})}));
     paintIn(all,palOf);return;
   }
   const i=CATS.findIndex(c=>c[0]===sub),[k,l,desc]=CATS[i],nx=CATS[(i+1)%CATS.length],ws=inCat(k);
@@ -897,7 +955,7 @@ function renderComposer(sub){
 /* ---------- performer ---------- */
 function renderPerformer(sub){
   if(!sub){
-    view.innerHTML=`<section class="page">${head("performer","Guitar, feedback and electronics: in ensembles, in concert series and premieres, and solo.","field-front")}
+    view.innerHTML=`<section class="page">${studioHead("performer","Guitar, feedback and electronics: in ensembles, in concert series and premieres, and solo.","studio-guitar")}
     <div class="pgrid">${PHOTOS.map(([k,c])=>`<figure><img src="${IMG[k]}" alt="${c}" loading="lazy"><figcaption>${c}${CREDIT[k]?" · "+CREDIT[k]:""}</figcaption></figure>`).join("")}</div>
     ${GROUPS.map(([g,l])=>{const as=PERF.filter(a=>a.g===g);return `<section class="sec"><div class="sec-head"><h2><a href="#performer-${g}">${l}</a></h2><span class="count">${as.length}</span><a class="open" href="#performer-${g}">open section →</a></div>
       <ul class="rows">${as.map(a=>`<li><a href="#p-${a.s}"><span class="n">${a.t}</span><span class="r">${a.role}${a.v?" · ▶ video":""}</span></a></li>`).join("")}</ul></section>`}).join("")}
@@ -938,7 +996,7 @@ function renderProject(p){
 }
 
 /* ---------- events ---------- */
-const evHTML=e=>`<p class="ev"><span class="d">${e[0]}</span><span class="v">${e[1]}</span><span class="w">${e[2]}</span></p>`;
+const evHTML=e=>`<p class="ev"><span class="d">${e[0]}</span><span class="v">${e[1]}</span><span class="w">${e[2]}${e[3]?` <a class="tix" href="${e[3]}" target="_blank" rel="noopener">tickets →</a>`:""}</span></p>`;
 function pastByYear(){const ys={};PAST.forEach(e=>{const y=(e[0].match(/\d{4}/)||["other"])[0];(ys[y]=ys[y]||[]).push(e)});
   return Object.keys(ys).sort((a,b)=>b-a).map(y=>`<section class="year"><h2>${y}</h2><div class="year-items">${ys[y].map(evHTML).join("")}</div></section>`).join("")}
 function renderEvents(sub){
